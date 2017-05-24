@@ -6,7 +6,7 @@
 /*   By: jkalia <jkalia@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/21 13:57:22 by jkalia            #+#    #+#             */
-/*   Updated: 2017/05/14 14:19:50 by jkalia           ###   ########.fr       */
+/*   Updated: 2017/05/14 15:23:03 by jkalia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,9 @@ t_hashtable	*ht_create(int size)
 
 int			ht_hash(t_hashtable *hashtable, char *key)
 {
-	uint32_t	seed;
 	uint32_t	hashval;
 
-	seed = 123456789;
-	hashval = db_murmurhash(key, (uint32_t)ft_strlen(key), seed);
+	hashval = db_hash_algo(key);
 	return (hashval % hashtable->size);
 }
 
@@ -92,26 +90,18 @@ void		ht_set(t_hashtable *hashtable, char *key, char *value)
 		last = next;
 		next = next->next;
 	}
-	if (next != NULL && next->key != NULL && ft_strcmp(key, next->key) == 0)
+	newpair = ht_newpair(key, value);
+	if (next == hashtable->table[bin])
 	{
-		free(next->value);
-		next->value = ft_strdup(value);
+		newpair->next = next;
+		hashtable->table[bin] = newpair;
 	}
+	else if (next == NULL)
+		last->next = newpair;
 	else
 	{
-		newpair = ht_newpair(key, value);
-		if (next == hashtable->table[bin])
-		{
-			newpair->next = next;
-			hashtable->table[bin] = newpair;
-		}
-		else if (next == NULL)
-			last->next = newpair;
-		else
-		{
-			newpair->next = next;
-			last->next = newpair;
-		}
+		newpair->next = next;
+		last->next = newpair;
 	}
 }
 

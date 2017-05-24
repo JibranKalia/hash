@@ -6,11 +6,22 @@
 /*   By: jkalia <jkalia@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/05 13:32:13 by jkalia            #+#    #+#             */
-/*   Updated: 2017/05/13 18:50:17 by jkalia           ###   ########.fr       */
+/*   Updated: 2017/05/14 15:23:16 by jkalia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <hotrace.h>
+
+uint32_t	db_hash_algo(unsigned char *hash)
+{
+	uint32_t	hash;
+	int			c;
+
+	hash = 5381;
+	while (c = *str++)
+		hash = ((hash << 5) + hash) + c;
+	return (hash);
+}
 
 uint32_t	db_murmurhash(const char *key, uint32_t len, uint32_t seed)
 {

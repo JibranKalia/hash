@@ -6,7 +6,7 @@
 /*   By: jkalia <jkalia@student.42.us.org>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/13 14:29:00 by jkalia            #+#    #+#             */
-/*   Updated: 2017/05/14 14:36:10 by jkalia           ###   ########.fr       */
+/*   Updated: 2017/05/14 15:02:27 by jkalia           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@
 typedef struct		s_entry
 {
 	char			*key;
+	int				key_value;
 	char			*value;
+	int				value_len;
 	struct s_entry	*next;
 }					t_entry;
 
